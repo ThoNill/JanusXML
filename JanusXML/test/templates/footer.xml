@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<PositionBox name="include">
+	<PositionBox name="footer" bordered="true" filled="true"
+		linewidth="lwidth" grayscale="100">
+		<Label name="C 2" text="üäöÜÄÖ" bordered="true" filled="true"
+			linewidth="2" grayscale="100" width="25" height="25" relX="99" relY="1"></Label>
+	</PositionBox>
+	
+	<PositionBox name="footer*" bordered="true" filled="true"
+		linewidth="lwidth" grayscale="100">
+		<Label name="C 2" text="üäöÜÄÖ" bordered="true" filled="true"
+			linewidth="2" grayscale="100" width="25" height="25" relX="99" relY="1"></Label>
+	</PositionBox>
+	
+	<PLACE name="mehr" />
+</PositionBox>
