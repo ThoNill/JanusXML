@@ -34,14 +34,18 @@ public abstract class TreeWalker {
 			return;
 
 		goUp(elem);
+		walkAlongTheChilds(elem);
+		goDown(elem);
+
+	}
+
+	protected void walkAlongTheChilds(Element elem) {
 		for (Object e : elem.getChildren()) {
 			if (e instanceof Element) {
 				bearbeite((Element) e);
 				walkAlong((Element) e);
 			}
 		}
-		goDown(elem);
-
 	}
 
 	protected void goUp(Element elem) {
