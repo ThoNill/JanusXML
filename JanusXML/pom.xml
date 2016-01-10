@@ -41,7 +41,9 @@
 
 
 	<build>
+		<defaultGoal>clean install</defaultGoal>
 		<sourceDirectory>src</sourceDirectory>
+		<testSourceDirectory>test</testSourceDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -52,5 +54,15 @@
 				</configuration>
 			</plugin>
 		</plugins>
+
+		<testResources>
+			<testResource>
+				<directory>test</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</testResource>
+		</testResources>
+
 	</build>
 </project>
