@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import org.apache.log4j.Logger;
 import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -13,6 +14,9 @@ import org.junit.Test;
 import toni.druck.xml.XMLDocumentLoader;
 
 public class XMLIncludeTest {
+    private static final Logger LOG = Logger.getLogger(XMLIncludeTest.class);
+    private static final String AUSNAHME_AUFGETRETEN = "erwartete Ausnahme aufgetreten";
+    private static final String UNERWARTETE_AUSNAHME = "unerwartete Ausnahme";
 
 	@Test
 	public void loadDocument1() {
@@ -20,6 +24,7 @@ public class XMLIncludeTest {
 			new XMLDocumentLoader()
 					.createDocument("testdaten/testtemplates.xml");
 		} catch (Exception e) {
+		    LOG.error(UNERWARTETE_AUSNAHME,e);
 			Assert.fail("Exception " + e.getMessage());
 		}
 	}
@@ -31,6 +36,7 @@ public class XMLIncludeTest {
 					.createDocument("testdaten/testtemplates1.xml");
 			Assert.fail("Keine Exception ");
 		} catch (Exception e) {
+		    LOG.error(AUSNAHME_AUFGETRETEN,e);
 		}
 	}
 	
@@ -41,6 +47,7 @@ public class XMLIncludeTest {
 					.createDocumentWithoutException("testdaten/testtemplates1.xml");
 			assertNull(page);
 		} catch (Exception e) {
+		    LOG.error(UNERWARTETE_AUSNAHME,e);
 			Assert.fail("Exception " + e.getMessage());
 		}
 	}
@@ -56,6 +63,7 @@ public class XMLIncludeTest {
 			assertNotNull(elem);
 
 		} catch (Exception e) {
+		    LOG.error(UNERWARTETE_AUSNAHME,e);
 			Assert.fail("Exception " + e.getMessage());
 		}
 	}
@@ -70,6 +78,7 @@ public class XMLIncludeTest {
 			elem = getElement(page, "kommtDazu");
 			assertNotNull(elem);
 		} catch (Exception e) {
+		    LOG.error(UNERWARTETE_AUSNAHME,e);
 			Assert.fail("Exception " + e.getMessage());
 		}
 	}

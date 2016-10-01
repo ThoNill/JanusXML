@@ -4,8 +4,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Vector;
+import java.util.List; import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
 import org.janus.data.DefaultClassFactory;
 import org.jdom2.Attribute;
 import org.jdom2.Content;
@@ -25,14 +26,16 @@ import org.jdom2.input.SAXBuilder;
  * 
  */
 public class XMLDocumentLoader  {
+    private static final Logger LOG = Logger.getLogger(XMLDocumentLoader.class);
 
 
 
 	public Document createDocument(String name) {
+	    String docName = name;
 		if (!name.endsWith(".xml")) {
-			name = name + ".xml";
+			docName = name + ".xml";
 		}
-		InputStream resource = DefaultClassFactory.FACTORY.getResource(name);
+		InputStream resource = DefaultClassFactory.FACTORY.getResource(docName);
 
 		Document doc = LadeDocument(resource);
 		Element root = doc.getRootElement();
@@ -43,8 +46,8 @@ public class XMLDocumentLoader  {
 	public Document createDocumentWithoutException(String name) {
 		try {
 			return createDocument(name);
-			
 		} catch (Exception ex) {
+		    LOG.error("Exception",ex);
 			return null;
 		}
 	}
@@ -67,7 +70,7 @@ public class XMLDocumentLoader  {
 
 			return document;
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			LOG.error("Fehler",ex);;
 		}
 		return null;
 	}
@@ -76,7 +79,7 @@ public class XMLDocumentLoader  {
 		try {
 			return LadeDocument(in).getRootElement();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			LOG.error("Fehler",ex);;
 		}
 		return null;
 	}
@@ -103,9 +106,9 @@ public class XMLDocumentLoader  {
 		return childs;
 	}
 
-	static private Vector<Element> extractVectorOfElementsWithName(
+	static private List<Element> extractListOfElementsWithName(
 			Element source, String name) {
-		Vector<Element> childs = new Vector<Element>();
+		List<Element> childs = new ArrayList<Element>();
 		for (Content c : source.getContent()) {
 			if (c instanceof Element && name.equals(((Element) c).getName())) {
 				childs.add((Element) c);
@@ -115,7 +118,7 @@ public class XMLDocumentLoader  {
 	}
 
 	static private void ersetzePlacesDurchIntos(Element source, Element template) {
-		Vector<Element> intos = extractVectorOfElementsWithName(source, "INTO");
+		List<Element> intos = extractListOfElementsWithName(source, "INTO");
 		HashMap<String, Element> places = extractHashOfElementsWithName(
 				template, "PLACE");
 		for (Element into : intos) {
@@ -163,7 +166,7 @@ public class XMLDocumentLoader  {
 	}
 
 	static private void erstzeIncludes(Element elem) {
-		Vector<IncludeElement> includes = new Vector<IncludeElement>();
+		List<IncludeElement> includes = new ArrayList<IncludeElement>();
 		for (Content c : elem.getDescendants()) {
 			if (c instanceof IncludeElement) {
 				includes.add((IncludeElement) c);
@@ -181,7 +184,7 @@ public class XMLDocumentLoader  {
 		int index = p.indexOf(target);
 		target.detach();
 
-		Vector<Content> childs = new Vector<Content>();
+		List<Content> childs = new ArrayList<Content>();
 		for (Content c : source.getChildren()) {
 			childs.add(c);
 		}

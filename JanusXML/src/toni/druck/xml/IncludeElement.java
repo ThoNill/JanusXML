@@ -3,6 +3,7 @@ package toni.druck.xml;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.log4j.Logger;
 import org.jdom2.Element;
 
 
@@ -15,6 +16,7 @@ import org.jdom2.Element;
  * 
  */
 public class IncludeElement extends Element {
+    private static final Logger LOG = Logger.getLogger(IncludeElement.class);
 	private static int zaehler = 1;
 	private String sternValue;
 	private String filename;
@@ -32,7 +34,7 @@ public class IncludeElement extends Element {
 	}
 
 	private synchronized void inc() {
-		sternValue = "" + zaehler;
+		sternValue = Integer.toString(zaehler);
 		zaehler++;
 	}
 
@@ -53,7 +55,7 @@ public class IncludeElement extends Element {
 			try {
 				in.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				LOG.error("Fehler",e);;
 			}
 			return true;
 		}
