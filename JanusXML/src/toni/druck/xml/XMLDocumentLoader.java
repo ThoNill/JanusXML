@@ -1,10 +1,9 @@
 package toni.druck.xml;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List; import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.janus.data.DefaultClassFactory;

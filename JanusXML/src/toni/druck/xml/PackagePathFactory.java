@@ -1,7 +1,6 @@
 package toni.druck.xml;
 
 import org.apache.log4j.Logger;
-
 import org.janus.data.DefaultClassFactory;
 import org.jdom2.DefaultJDOMFactory;
 import org.jdom2.Element;
