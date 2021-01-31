@@ -13,7 +13,7 @@ import org.jdom2.Namespace;
  * @author Thomas Nill
  * 
  * Erzeugt Elemente {@link JDOMElementWithReference} die Referenzen auf 
- * Objekte haben, diese Objekte können beliebig sein, sind also von JDOOM2 abgekoppelt.
+ * Objekte haben, diese Objekte kï¿½nnen beliebig sein, sind also von JDOOM2 abgekoppelt.
  * 
  */
 public class PackagePathFactory extends DefaultJDOMFactory {
@@ -63,10 +63,14 @@ public class PackagePathFactory extends DefaultJDOMFactory {
 			return new IncludeElement(name, filename);
 		}
 
-		Object obj = DefaultClassFactory.FACTORY.getInstance(prefix + name);
+		Object obj = createReferenzObject(name);
 		JDOMElementWithReference elem = new JDOMElementWithReference(name, obj);
 		elem.setName(name);
 		return elem;
+	}
+
+	private Object createReferenzObject(String name) {
+		return DefaultClassFactory.FACTORY.getInstance(prefix + name);
 	}
 
 	public String getPrefix() {
